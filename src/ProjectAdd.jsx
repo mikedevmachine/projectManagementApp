@@ -1,10 +1,11 @@
 import { useRef, useState } from "react";
 
-export default function ProjectAdd({ onCancel, onSave, onForward }) {
+export default function ProjectAdd({ onCancel, onSave }) {
   const project = useRef({
     title: "",
-    description: "",
+    description: "No description for this project.... sorry",
     date: formatDate(new Date()),
+    tasks: [],
   });
 
   function formatDate(date) {
@@ -29,7 +30,9 @@ export default function ProjectAdd({ onCancel, onSave, onForward }) {
     project.current.date = event.target.value;
   }
   function handleSave() {
-    onSave(project.current);
+    if (project.current.title.length > 3) {
+      onSave(project.current);
+    }
   }
 
   return (

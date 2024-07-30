@@ -29,9 +29,15 @@ function App() {
   }
 
   function handleSelectProject(index) {
-    console.log(index);
     setSelectedProject(index);
     setSelected(true);
+  }
+
+  function deleteProject(index) {
+    const updatedProjects = projects.filter((_, i) => i !== index);
+    setProjects(updatedProjects);
+    setSelected(false);
+    setSelectedProject(null);
   }
 
   return (
@@ -44,7 +50,10 @@ function App() {
         />
 
         {selected && selectedProject !== null ? (
-          <ProjectEdit project={projects[selectedProject]} />
+          <ProjectEdit
+            project={projects[selectedProject]}
+            onDelete={() => deleteProject(selectedProject)}
+          />
         ) : saved ? (
           <ProjectSelect onClick={handleAddProject} />
         ) : projectAdded ? (
